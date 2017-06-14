@@ -1,6 +1,17 @@
 const express = require('express');
-const app = express();
+const mongodb = require('mongodb');
 
+const app = express();
+const MongoClient = mongodb.MongoClient;
+const mongoUrl = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/split_saver';
+
+MongoClient.connect(mongoUrl, (err, db) => {
+    if(err) {
+        console.log(err);
+    } else {
+        console.log("Successfully connected to : ", mongoUrl);
+    }
+});
 app.get('/', function (req, res) {
    console.log("Got a GET request for the homepage");
    res.send('Hello GET');
