@@ -3,7 +3,7 @@ const mongodb = require('mongodb');
 
 const app = express();
 const MongoClient = mongodb.MongoClient;
-const mongoUrl = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/split_saver';
+const mongoUrl = process.env.MONGODB_URI || 'mongodb://localhost:27017/split_saver';
 
 MongoClient.connect(mongoUrl, (err, db) => {
     if(err) {
