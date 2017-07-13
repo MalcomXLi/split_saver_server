@@ -2,12 +2,18 @@ const {User} = require('../models/User');
 const express = require('express')
 const router = express.Router()
 
-router.post('/', function (req, res) {
-    if (!req.body.phoneNumber) {
+router.post('/createUser', function (req, res) {
+    console.log('Route createUser accessed');
+    const body = req.body;
+    if (!body.name) {
+        return res.status(400).send("Missing Name");
+    }
+    if (!body.phoneNumber) {
         return res.status(400).send("Missing Phone Number");
     }
     const userBody = {
-        phone_number: req.body.phoneNumber,
+        name: body.name,
+        phone_number: body.phoneNumber,
     }
 
     User.update(userBody, {$set: userBody}, {upsert: true}, (err) => {
