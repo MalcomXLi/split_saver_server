@@ -10,7 +10,8 @@ router.post('/', function (req, res) {
         line_items: body.lineItems,
         total: body.total,
         associated_users: body.associatedUsers,
-        owner: req.session.user._id
+        owner: req.session.user._id,
+        created_at: Date.now(),
     }
 
     DigitalReceipt.update({name: digitalReceiptBody.name, owner: digitalReceiptBody.owner}, {$set: digitalReceiptBody}, {upsert: true}, (err, data) => {
@@ -23,8 +24,9 @@ router.post('/', function (req, res) {
     });
 })
 
+// Sort this chronologically
 router.get('/', function (req, res) {
-    DigitalReceipt.find({owner: req.session.user._id}, (err, digitalReceipts) => {
+    DigitalReceipt.find({owner: req.session.user._id}, null, {sort: {created_at: -1}}, (err, digitalReceipts) => {
         return res.status(200).json(digitalReceipts || []);
     });
 })
