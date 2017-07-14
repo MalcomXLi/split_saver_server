@@ -2,8 +2,7 @@ const {User} = require('../models/User');
 const express = require('express')
 const router = express.Router()
 
-router.post('/createUser', function (req, res) {
-    console.log('Route createUser accessed');
+router.post('/', function (req, res) {
     const body = req.body;
     if (!body.name) {
         return res.status(400).send("Missing Name");
