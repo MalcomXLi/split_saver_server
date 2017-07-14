@@ -8,7 +8,7 @@ const DigitalReceiptSchema = new Schema({
         value: Number,
     }],
     total: Number,
-    associated_users: [{type: String}],
+    associated_users: [{phoneNumber: String, lineItems: []}],
     owner: {type: Schema.Types.ObjectId, ref: 'User'}
 }, { collection: 'digital_receipts'});
 const DigitalReceipt = mongoose.model('DigitalReceipt', DigitalReceiptSchema);

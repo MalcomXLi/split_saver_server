@@ -10,7 +10,7 @@ router.post('/', function (req, res) {
         line_items: body.lineItems,
         total: body.total,
         associated_users: body.associatedUsers,
-        owner: mongoose.mongo.ObjectId(body.userId)
+        owner: req.session.user._id
     }
 
     DigitalReceipt.update({name: digitalReceiptBody.name, owner: digitalReceiptBody.owner}, {$set: digitalReceiptBody}, {upsert: true}, (err, data) => {
@@ -22,5 +22,18 @@ router.post('/', function (req, res) {
         }
     });
 })
+
+router.get('/', function (req, res) {
+    DigitalReceipt.find({owner: req.session.user._id}, (err, digitalReceipts) => {
+        return res.status(200).json(digitalReceipts || []);
+    });
+})
+
+router.get('/:id', function (req, res) {
+    DigitalReceipt.findById(req.params.id, (err, digitalReceipts) => {
+        return res.status(200).json(digitalReceipts || []);
+    });
+})
+
 
 module.exports = router;

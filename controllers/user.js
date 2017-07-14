@@ -25,4 +25,23 @@ router.post('/createUser', function (req, res) {
         }
     });
 })
+
+router.post('/login', function (req, res) {
+    User.findOne({phone_number: req.body.phoneNumber}, (err, user) => {
+        if (err) {
+            console.log("Error logging in : " + err);
+            return res.status(400).send("Error Logging In");
+        }
+        if (!user) {
+            return res.status(404).send("User Not Found");
+        }
+        req.session.user = user;
+        return res.status(200).send("Logged in successfully");
+    });
+})
+
+router.get('/logout', function (req, res) {
+    req.session.reset();
+    return res.status(200).send("Logged Out successfully");
+})
 module.exports = router;
