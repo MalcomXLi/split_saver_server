@@ -31,29 +31,30 @@ const server = app.listen(process.env.PORT || 8081, () => {
 });
 
 //Middleware
-const requireLogin = (req, res, next) => {
-    if (!req.user) {
-        return res.status(400).send("Not Logged In");
-    } else {
-        next();
-    }
-};
+// const requireLogin = (req, res, next) => {
+//     if (!req.user) {
+//         return res.status(400).send("Not Logged In");
+//     } else {
+//         next();
+//     }
+// };
 
-app.use((req, res, next) => {
-    if (req.session && req.session.user) {
-        User.findById(req.session.user._id, (err, user) => {
-            if (user) {
-                req.user = user;
-                req.session.user = user;  //refresh the session value
-            }
-            // finishing processing the middleware and run the route
-            next();
-        });
-    } else {
-        next();
-    }
-});
+// app.use((req, res, next) => {
+//     if (req.session && req.session.user) {
+//         User.findById(req.session.user._id, (err, user) => {
+//             if (user) {
+//                 req.user = user;
+//                 req.session.user = user;  //refresh the session value
+//             }
+//             // finishing processing the middleware and run the route
+//             next();
+//         });
+//     } else {
+//         next();
+//     }
+// });
 app.use('/user', user);
-app.use('/digitalreceipt', requireLogin, digitalReceipt);
+app.use('/digitalreceipt', digitalReceipt);
+// app.use('/digitalreceipt', requireLogin, digitalReceipt);
 
 

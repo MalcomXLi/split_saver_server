@@ -24,7 +24,7 @@ router.post('/', function (req, res) {
 })
 
 router.get('/', function (req, res) {
-    DigitalReceipt.find({owner: req.session.user._id}, (err, digitalReceipts) => {
+    DigitalReceipt.find({}, (err, digitalReceipts) => {
         return res.status(200).json(digitalReceipts || []);
     });
 })
