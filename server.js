@@ -5,9 +5,9 @@ const session = require('client-sessions');
 const {User} = require('./models/User');
 const {DigitalReceipt} = require('./models/DigitalReceipt');
 const fs = require('fs');
-const user = require('./controllers/user.js');
-const digitalReceipt = require('./controllers/digitalReceipt.js');
-
+const user = require('./controllers/user');
+const digitalReceipt = require('./controllers/digitalReceipt');
+const notification = require('./controllers/notification');
 const mongoUrl = process.env.MONGODB_URI || 'mongodb://localhost:27017/split_saver';
 mongoose.connect(mongoUrl, {useMongoClient: true}, function(error) {
     if (error) {
@@ -55,5 +55,6 @@ app.use((req, res, next) => {
 });
 app.use('/user', user);
 app.use('/digitalreceipt', requireLogin, digitalReceipt);
+app.use('/notify', requireLogin, notification);
 
 
