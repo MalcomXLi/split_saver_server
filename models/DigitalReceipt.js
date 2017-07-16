@@ -3,14 +3,14 @@ const Schema = mongoose.Schema;
 
 const DigitalReceiptSchema = new Schema({
     name: String,
-    line_items: [{
+    lineItems: [{
         name: String,
         value: Number,
     }],
     total: Number,
-    associated_users: [{phoneNumber: String, lineItems: []}],
+    associatedUsers: {},
     owner: {type: Schema.Types.ObjectId, ref: 'User'},
-    created_at : {type: Date, required: true, default: Date.now}
+    createdAt : {type: Date, required: true, default: Date.now}
 }, { collection: 'digital_receipts'});
 const DigitalReceipt = mongoose.model('DigitalReceipt', DigitalReceiptSchema);
 module.exports.DigitalReceipt = DigitalReceipt;

@@ -7,11 +7,11 @@ router.post('/', function (req, res) {
     const body = req.body;
     const digitalReceiptBody = {
         name: body.name,
-        line_items: body.lineItems,
+        lineItems: body.lineItems,
         total: body.total,
-        associated_users: body.associatedUsers,
+        associatedUsers: body.associatedUsers,
         owner: req.session.user._id,
-        created_at: Date.now(),
+        createdAt: Date.now(),
     }
 
     DigitalReceipt.update({name: digitalReceiptBody.name, owner: digitalReceiptBody.owner}, {$set: digitalReceiptBody}, {upsert: true}, (err, data) => {
