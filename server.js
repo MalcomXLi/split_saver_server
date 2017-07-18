@@ -22,7 +22,7 @@ app.use(session({
   cookieName: 'session',
   secret: 'split_server_secret',
   duration: 30 * 60 * 1000,
-  activeDuration: 5 * 60 * 1000,
+  activeDuration: 100 * 60 * 1000,
 }));
 
 const server = app.listen(process.env.PORT || 8081, () => {
