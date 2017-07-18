@@ -33,6 +33,7 @@ const server = app.listen(process.env.PORT || 8081, () => {
 //Middleware
 const requireLogin = (req, res, next) => {
     if (!req.user) {
+        console.log("User is not logged in");
         return res.status(400).send("Not Logged In");
     } else {
         next();
