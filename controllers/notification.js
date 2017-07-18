@@ -88,7 +88,7 @@ const createDigitalReceiptMessage = (digitalReceipt, associatedLineItems) => {
             });
         });
         Promise.all(lineItemsRequests).then(() => {
-            message += "\nFinal Amount :\t\t" + digitalReceipt.total + "\n\nHow Much You Owe:\n\n";
+            message += "\nFinal Amount :\t\t$" + digitalReceipt.total + "\n\nHow Much You Owe:\n\n";
             resolve(message);
         });
     });
@@ -104,7 +104,7 @@ const addAmountDue = (baseMessage, associatedCosts, userName) => {
             });
         });
         Promise.all(lineItemsRequests).then(() => {
-            message += `\nTotal Amount Owed to ${userName}:\t${associatedCosts.total}`;
+            message += `\nTotal Amount Owed to ${userName}:\t$${associatedCosts.total}`;
             resolve(message);
         });
     });

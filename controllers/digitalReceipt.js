@@ -27,12 +27,20 @@ router.post('/', function (req, res) {
 // Sort this chronologically
 router.get('/', function (req, res) {
     DigitalReceipt.find({owner: req.session.user._id}, null, {sort: {created_at: -1}}, (err, digitalReceipts) => {
+        if (err) {
+            console.log("Error Getting Receipts: " + JSON.stringify(err, null, 4));
+            return res.status(400).send("Error Getting Receipts");
+        }
         return res.status(200).json(digitalReceipts || []);
     });
 })
 
 router.get('/:id', function (req, res) {
     DigitalReceipt.findById(req.params.id, (err, digitalReceipts) => {
+        if (err) {
+            console.log("Error Getting Receipt: " + JSON.stringify(err, null, 4));
+            return res.status(400).send("Error Getting Receipt");
+        }
         return res.status(200).json(digitalReceipts || []);
     });
 })
