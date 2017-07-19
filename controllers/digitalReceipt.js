@@ -19,7 +19,7 @@ router.post('/', function (req, res) {
             console.log("error on saving digital receipt : " + err);
             return res.status(400).send("Error Creating Digital Receipt");
         } else {
-            return res.status(200).send("Digital Receipt Created");
+            return res.status(200).json(data.upserted[0]);
         }
     });
 })
