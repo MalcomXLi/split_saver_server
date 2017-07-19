@@ -34,19 +34,18 @@ router.post('/', (req, res) => {
 })
 
 router.post('/bulk', (req, res) => {
-    const phoneNumbers = req.body.phoneNumbers;
-    if (!phoneNumbers || !req.body.digitalReceiptId) {
+    if (!req.body.digitalReceiptId) {
         return res.status(400).send("Missing parameter");
     }
     DigitalReceipt.findById(req.body.digitalReceiptId)
     .populate("owner")
     .exec((err, digitalReceipt) => {
-        if (err || !digitalReceipt) {
+        if (err || !digitalReceipt || !digitalReceipt.associatedUsers) {
             if (err) console.log(err);
             return res.status(400).send("Invalid digital receipt");
         }
         createDigitalReceiptMessage(digitalReceipt).then((baseMessage) => {
-            let promises = phoneNumbers.map((phoneNumber) => {
+            let promises = Object.keys(digitalReceipt.associatedUsers).map((phoneNumber) => {
                 return new Promise((resolve, reject) => {
                     if (!digitalReceipt.associatedUsers[phoneNumber]) {
                         return reject("Invalid Associated User");

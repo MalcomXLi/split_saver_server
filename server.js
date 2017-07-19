@@ -41,7 +41,6 @@ const requireLogin = (req, res, next) => {
 };
 
 app.use((req, res, next) => {
-    console.log("Ping Pong");
     if (req.session && req.session.user) {
         User.findById(req.session.user._id, (err, user) => {
             if (user) {
