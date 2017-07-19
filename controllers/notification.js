@@ -7,6 +7,7 @@ const client = require('twilio')(
 );
 
 router.post('/', (req, res) => {
+    console.log(JSON.stringify(req.body, null, 4));
     const phoneNumber = req.body.phoneNumber;
     if (!phoneNumber || !req.body.digitalReceiptId) {
         return res.status(400).send("Missing parameter");
